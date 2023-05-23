@@ -64,8 +64,12 @@ void loop() {
   } else {
     DateTime now = rtc.now();
     Serial.println(now.tostr(buf));
+    display.clearDisplay(); // 清除屏幕显示内容
+    display.setCursor(0, 0); // 设置显示坐标原点
+    display.println(now.tostr(buf)); // 设置显示内容为时间
+    display.display(); // 输出显示效果
   }
-  delay(3000);
+  delay(1000);
 }
 
 void testdrawstyles(void) {
