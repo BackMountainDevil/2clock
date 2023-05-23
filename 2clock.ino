@@ -70,7 +70,7 @@ void testdrawstyles(void) {
   display.setTextSize(2);             // 設定文字大小
   display.setTextColor(1);        // 1:OLED預設的顏色(這個會依該OLED的顏色來決定)
   display.setCursor(0,0);             // 設定起始座標
-  display.print("Hello OLED");        // 要顯示的字串
-  display.println(F("Hello OLED"));
+  display.println("Hi My Love");        // 要顯示的字串
+  display.println(F("   --Mifen"));
   display.display();                  // 要有這行才會把文字顯示出來
 }
