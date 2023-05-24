@@ -4,9 +4,13 @@
  * 1.
  * http://www.taichi-maker.com/homepage/reference-index/display-reference-index/arduino-oled-application/
  * 2. https://blog.jmaker.com.tw/arduino-ssd1306-oled/
+ * 3.
+ * http://www.taichi-maker.com/homepage/reference-index/arduino-library-index/install-arduino-library/
+ * 4. https://github.com/BackMountainDevil/Arduino-ST7789-Library
  */
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include <Arduino_ST7789.h> // Hardware-specific library for ST7789 (with or without CS pin)
 #include <RTClib.h>
 #include <SPI.h>
 #include <Wire.h>
@@ -29,6 +33,11 @@ char buf[20];
 #define SCREEN_ADDRESS                                                         \
   0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+/*
+ * 1.3'' TFT Screen
+ */
+Arduino_ST7789 tft = Arduino_ST7789(8, 9, 11, 13); // DC RST MOSI SCLK
 
 void setup() {
   Serial.begin(9600);
@@ -53,6 +62,11 @@ void setup() {
   delay(2000);      // Pause for 2 seconds
   // Clear the buffer
   display.clearDisplay();
+
+  tft.init(240, 240);              // 初始化屏幕（宽度，高度）
+  tft.fillScreen(BLACK);           // 填充黑色背景
+  drawtext("Hi,My Love", MAGENTA); // 显示文字
+  delay(1000);
 }
 
 void loop() {
@@ -80,4 +94,16 @@ void testdrawstyles(void) {
   display.println("Hi My Love"); // 要顯示的字串
   display.println(F("   --Mifen"));
   display.display(); // 要有這行才會把文字顯示出來
+}
+
+void drawtext(char *text, uint16_t color) {
+  /*在屏幕上绘制文字
+  text：文字内容
+  color：文字颜色
+  */
+  tft.setCursor(0, 0);
+  tft.setTextColor(color);
+  tft.setTextWrap(true);
+  tft.setTextSize(3);
+  tft.print(text);
 }
