@@ -82,6 +82,9 @@ void loop() {
     display.setCursor(0, 0);         // 设置显示坐标原点
     display.println(now.tostr(buf)); // 设置显示内容为时间
     display.display();               // 输出显示效果
+
+    tft.fillScreen(BLACK);
+    drawtext(now.tostr(buf), MAGENTA); // 显示时间到TFT屏幕上
   }
   delay(1000);
 }
