@@ -21,6 +21,7 @@
 // sck_pin (CLK): default 5
 // io_pin  (DAT): default 6
 DS1302 rtc;
+unsigned int timeDelta = 0; // 时间误差修正参数，单位为秒，不关心这个设置为0即可
 
 // buffer for DateTime.tostr
 char buf[20];
@@ -49,8 +50,9 @@ void setup() {
     rtc.adjust(DateTime(__DATE__, __TIME__));
   }
 
-  //    Serial.println("rest time");
-  //    rtc.adjust(DateTime(__DATE__, __TIME__));
+//  Serial.println("rest time");
+//  DateTime time_fix = DateTime(__DATE__, __TIME__) + TimeDelta(timeDelta);
+//  rtc.adjust(time_fix);
 
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
   if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
